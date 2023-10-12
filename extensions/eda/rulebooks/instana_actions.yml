@@ -1,0 +1,23 @@
+---
+- name: Read messages from a Instana webhook and act on them
+  hosts: all
+  sources:
+#    - ansible.eda.webhook:
+    - ibm.instana.instana_webhook:
+        host: 0.0.0.0
+        port: 5000
+
+  rules:
+    - name: Run Fix Application Issue Playbook
+#      condition: event.payload.start == "1695692911000"
+#      condition: event.payload != "WY8uug0vSx6FiZbCKvFTXw"
+#      condition: event.payload.type == "issue"
+      condition: event.payload.problem.problemText == "[QOTD] Erroneous call rate is too high"
+      action:
+        run_job_template:
+#          name: instana_vars
+          name: Start apps
+          organization: Default
+#          job_args:
+#            extra_vars:
+#              all_vars: "{{ event['payload'] }}"
