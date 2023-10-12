@@ -1,0 +1,41 @@
+- name: Resize EC2 Instance from Turbonomic Recommendation via Event Driven Ansible
+  hosts: local
+  gather_facts: false
+  roles:
+    - resize_ec2_instance
+
+- name: Check httpd service after instance type changed
+  hosts: local
+  tasks:
+    - name: Collect EC2 info
+      amazon.aws.ec2_instance_info:
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
+        instance_ids:
+          - "{{ instance_id }}"
+      register: ec2_info
+      
+    - name: check html file
+      ansible.builtin.uri:
+        url: "http://{{ ec2_info.instances[0].public_ip_address }}"
+      register: result
+
+    - name: display status code
+      ansible.builtin.debug:
+        msg: "Web Server Status is {{ result.status }}!!"      
+
+#    - name: display ec2 "{{ instance_id }}" info
+#      ansible.builtin.debug:
+#        var: ec2_info.instances
+#
+#- name: Check httpd service after instance type changed
+#  hosts: aws_ec2
+#  tasks:
+#    - name: check html file
+#      ansible.builtin.uri:
+#        url: "http://{{ ansible_facts.fqdn }}"
+#      register: result
+#
+#    - name: display status code
+#      ansible.builtin.debug:
+#        msg: "Web Server Status is {{ result.status }}!!"      
