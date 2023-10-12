@@ -1,0 +1,7 @@
+---
+- name: check vars for turbonomic
+  hosts: all
+  tasks:
+    - name: display vars
+      ansible.builtin.debug:
+        var: all_vars
