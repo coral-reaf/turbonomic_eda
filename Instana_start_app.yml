@@ -1,0 +1,9 @@
+---
+- name: Fix the problem of application down
+  hosts: all
+  tasks:
+    - name: start ratings apps
+      ansible.builtin.command: "sh /home/ubuntu/start_qotd-ratings.sh"
+      
+    - name: start author apps
+      ansible.builtin.command: "sh /home/ubuntu/start_qotd-author.sh"
