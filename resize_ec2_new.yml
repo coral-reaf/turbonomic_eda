@@ -24,6 +24,10 @@
       ansible.builtin.debug:
         msg: "Web Server Status is {{ result.status }}!!"      
 
+    - name: display vars
+      ansible.builtin.debug:
+        var: all_vars
+        
 #    - name: display ec2 "{{ instance_id }}" info
 #      ansible.builtin.debug:
 #        var: ec2_info.instances
