@@ -8,6 +8,6 @@
     - name: start author apps
       ansible.builtin.command: "sh /home/ubuntu/start_qotd-author.sh"
 
-    - name: display vars
-      ansible.builtin.debug:
-        var: all_vars
+#    - name: display vars
+#      ansible.builtin.debug:
+#        var: all_vars
