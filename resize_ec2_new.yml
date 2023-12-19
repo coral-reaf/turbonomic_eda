@@ -1,11 +1,11 @@
 - name: Resize EC2 Instance from Turbonomic Recommendation via Event Driven Ansible
-  hosts: local
+  hosts: all
   gather_facts: false
   roles:
     - resize_ec2_instance
 
 - name: Check httpd service after instance type changed
-  hosts: local
+  hosts: all
   tasks:
     - name: Collect EC2 info
       amazon.aws.ec2_instance_info:
